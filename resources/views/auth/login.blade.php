@@ -17,7 +17,7 @@
 		<div class="container">
 			<div style="justify-content: right" class="row ">
 				<div class="col-md-4 text-center mb-5">
-					<h2 class="heading-section">ECommunity UMP</h2>
+					<h2 class="heading-section">ECommunityUMP</h2>
 				</div>
 			</div>
 			<div style="justify-content: right" class="row">

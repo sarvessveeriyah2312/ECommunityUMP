@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,46 +24,31 @@ Route::get('/logout', [AuthController::class, 'logout']);
 //     return view('welcome');
 // });
 
-Route::get('admin/dashboard', function () {
-    return view('admin.dashboard');
-});
-
 Route::get('admin/admin', function () {
     return view('admin.admin.list');
 });
 
 
 Route::group(['middleware' => 'admin'], function () {
-    Route::get('admin/dashboard', function () {
-        return view('admin.dashboard');
-    });
+    Route::get('admin/dashboard', [DashboardController::class, 'dashboard']);
     
 });
 
 Route::group(['middleware' => 'lecturer'], function () {
-    Route::get('lecturer/dashboard', function () {
-        return view('admin.dashboard');
-    });
+    Route::get('lecturer/dashboard', [DashboardController::class, 'dashboard']);
     
 });
 
 Route::group(['middleware' => 'student'], function () {
-    Route::get('student/dashboard', function () {
-        return view('admin.dashboard');
-    });
+    Route::get('student/dashboard', [DashboardController::class, 'dashboard']);
     
 });
 
 Route::group(['middleware' => 'parent'], function () {
-    Route::get('parent/dashboard', function () {
-        return view('admin.dashboard');
-    });
+    Route::get('parent/dashboard', [DashboardController::class, 'dashboard']);
     
 });
 
 Route::group(['middleware' => 'staff'], function () {
-    Route::get('staff/dashboard', function () {
-        return view('admin.dashboard');
-    });
-    
+    Route::get('staff/dashboard', [DashboardController::class, 'dashboard']);
 });
