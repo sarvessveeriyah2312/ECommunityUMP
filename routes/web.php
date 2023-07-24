@@ -4,6 +4,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LecturerController;
+use App\Http\Controllers\ParentController;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,9 +40,30 @@ Route::post('/reset/{token}', [AuthController::class, 'PostResetPassword']);
 
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/dashboard', [DashboardController::class, 'dashboard']);
+    // Administrator Management
     Route::get('admin/admin', [AdminController::class, 'list']);
     Route::get('admin/admin/add', [AdminController::class, 'add']);
     Route::post('admin/admin/add', [AdminController::class, 'insert']);
+    Route::get('/edit-user/{id}', [AdminController::class, 'edit']);
+    Route::post('/edit-user/{id}', [AdminController::class, 'update'])->name('updateUser');
+    Route::delete('/delete-user/{id}', [AdminController::class, 'destroy'])->name('deleteUser');
+
+    Route::get('admin/lecturer', [LecturerController::class, 'list']);
+    Route::get('admin/lecturer/add', [LecturerController::class, 'add']);
+    Route::post('admin/lecturer/add', [LecturerController::class, 'insert']);
+    Route::get('/edit-lecturer/{id}', [LecturerController::class, 'edit']);
+    Route::post('/edit-lecturer/{id}', [LecturerController::class, 'update'])->name('updateLecturer');
+    Route::delete('/delete-lecturer/{id}', [LecturerController::class, 'destroy'])->name('deleteLecturer');
+
+    Route::get('admin/student', [StudentController::class, 'list']);
+    Route::get('admin/parents', [ParentController::class, 'list']);
+    Route::get('admin/staff', [StaffController::class, 'list']);
+
+
+
+
+
+
 
     
 });

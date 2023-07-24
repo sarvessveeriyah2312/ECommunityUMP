@@ -6,17 +6,17 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class AdminController extends Controller
+class LecturerController extends Controller
 {
     public function list() {
-        $data['getRecord'] = User::getAdmin();
-        $data ['header_title'] = "Manage Administrator";
-        return view('admin.admin.list', $data);
+        $data['getRecord'] = User::getLecturer();
+        $data ['header_title'] = "Manage Lecturer";
+        return view('admin.lecturer.list', $data);
     }
 
     public function add() {
-        $data ['header_title'] = "Create New Admin";
-        return view('admin.admin.add', $data);
+        $data ['header_title'] = "Create New Lecturer";
+        return view('admin.lecturer.add', $data);
     }
 
     public function insert(Request $request)
@@ -26,7 +26,7 @@ class AdminController extends Controller
         $user->matrixid = trim($request->matrixid);
         $user->email = trim($request->email);
         $user->password = Hash::make($request->password);
-        $user->user_type = 1;
+        $user->user_type = 2;
 
         if ($request->hasFile('profile_image')) {
             $image = $request->file('profile_image');
@@ -35,26 +35,25 @@ class AdminController extends Controller
         }
         $user->save();
 
-        return redirect('admin/admin')->with('success', 'Admin has been created successfully!');
+        return redirect('admin/lecturer')->with('success', 'Lecturer has been created successfully!');
 
     }
 
     public function edit($id)
-{
-    $data['getRecord'] = User::getSingle($id);
-    if(!empty($data['getRecord']))
     {
-        $data ['header_title'] = "Update Administrator";
-        return view('admin.admin.edit', $data);
+        $data['getRecord'] = User::getSingle($id);
+        if(!empty($data['getRecord']))
+        {
+            $data ['header_title'] = "Update Lecturer";
+            return view('admin.lecturer.edit', $data);
+        }
+        else 
+        {
+            abort(404);
+        }
+        
     }
-    else 
-    {
-        abort(404);
-    }
-    
-}
-
-public function update(Request $request, $id)
+    public function update(Request $request, $id)
 {
     $user = User::find($id);
     $user->name = trim($request->name);
@@ -71,7 +70,7 @@ public function update(Request $request, $id)
     }
     $user->save();
 
-    return redirect('admin/admin')->with('success', 'Admin has been updated successfully!');
+    return redirect('admin/lecturer')->with('success', 'Lecturer has been updated successfully!');
 }
 
 public function destroy($id)
@@ -79,7 +78,7 @@ public function destroy($id)
     $user = User::find($id);
     $user->delete();
     // Implement your logic for deleting the user
-    return redirect()->back()->with('success', 'Administrator deleted successfully.');
+    return redirect()->back()->with('success', 'Lecturer deleted successfully.');
 }
+    
 }
-

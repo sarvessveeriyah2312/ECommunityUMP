@@ -1,6 +1,5 @@
 <footer class="main-footer">
   <strong>&copy;{{ date('Y') }} ECommunityUMP</strong>
-  All rights reserved.
   <div class="float-right d-none d-sm-inline-block">
     <b>System Time:</b> 
     <span id="current-time">{{ date('Y-m-d H:i:s') }}</span>
