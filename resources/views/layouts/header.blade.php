@@ -143,14 +143,55 @@
             </p>
           </a>
         </li>
+        <!--Dropdown Menu -->
         <li class="nav-item">
-          <a href="{{ url('admin/admin') }}" class="nav-link @if(Request::segment(2) == 'admin') active @endif">
-            <i class="nav-icon far fa-user"></i>
+          <a href="#" class="nav-link @if(Request::segment(2) == 'admin') active @endif"">
+            <i class="nav-icon fas fa-users"></i>
             <p>
-              Admin
+              Users Management
+              <i class="fas fa-angle-left right"></i>
             </p>
           </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ url('admin/admin') }}" class="nav-link">
+                <i class="nav-icon fas fa-lock"></i>
+                <p>
+                  Administrator
+                </p>
+              </a>
+              <li class="nav-item">
+                <a href="{{ url('admin/admin') }}" class="nav-link">
+                  <i class="nav-icon fas fa-user"></i>
+                  <p>
+                    Lecturer
+                  </p>
+                </a>
+              <li class="nav-item">
+                <a href="{{ url('admin/admin') }}" class="nav-link">
+                  <i class="nav-icon fas fa-graduation-cap"></i>
+                  <p>
+                    Student
+                  </p>
+                </a>
+                <li class="nav-item">
+                  <a href="{{ url('admin/admin') }}" class="nav-link">
+                    <i class="nav-icon fas fa-star"></i>
+                    <p>
+                      Parents
+                    </p>
+                  </a>
+                  <li class="nav-item">
+                    <a href="{{ url('admin/admin') }}" class="nav-link">
+                      <i class="nav-icon fas fa-id-badge"></i>
+                      <p>
+                        Staff
+                      </p>
+                    </a>
+                
+          </ul>
         </li>
+        <!--Dropdown Menu Ends -->
           @elseif(Auth::user()->user_type == 2)
           <li class="nav-item">
             <a href="{{ url('lecturer/dashboard') }}" class="nav-link @if(Request::segment(2) == 'dashboard') active @endif">
