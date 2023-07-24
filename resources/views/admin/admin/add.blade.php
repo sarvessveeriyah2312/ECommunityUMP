@@ -81,15 +81,17 @@
                             {{ csrf_field() }}
                         <div class="form-group">
                             <label for="exampleInputEmail1">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" required placeholder="Enter Account Owner's Name">
+                            <input type="text" class="form-control" id="name" value="{{ old('name') }}" name="name" required placeholder="Enter Account Owner's Name">
                           </div>
                           <div class="form-group">
                             <label for="exampleInputEmail1">Matrix ID/Username</label>
-                            <input type="text" class="form-control" id="matrixid" name="matrixid" required placeholder="Enter Account Owner's Matrix ID or Username">
+                            <input type="text" class="form-control" id="matrixid" value="{{ old('matrixid') }}" name="matrixid" required placeholder="Enter Account Owner's Matrix ID or Username">
+                            <div style="color: red"> {{ $errors->first('matrixid') }}</div>
                           </div>
                       <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" required placeholder="Enter email">
+                        <input type="email" class="form-control" id="exampleInputEmail1" value="{{ old('email') }}" name="email" required placeholder="Enter email">
+                        <div style="color: red"> {{ $errors->first('email') }}</div>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
