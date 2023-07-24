@@ -8,10 +8,10 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Manage Administrators</h1>
+            <h1>Manage Staff</h1>
           </div>
           <div class="col-sm-6" style="text-align: right">
-            <a href="{{ url('admin/admin/add')}}" class="btn btn-success"> + Add New Admin</a>
+            <a href="{{ url('admin/staff/add')}}" class="btn btn-success"> + Add New Staff</a>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -24,7 +24,7 @@
             @include('_message')
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Administrators</h3>
+                <h3 class="card-title">Staff</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -55,10 +55,10 @@
                       </td>
                       <td style="text-align: center" >{{ $value->created_at }}</td>
                       <td class="justify-content-center">
-                        <a href="{{ route('updateUser', ['id' => $value->id]) }}" class="btn btn-primary mr-2" >
+                        <a href="{{ route('updateStaff', ['id' => $value->id]) }}" class="btn btn-primary mr-2" >
                             <i class="fas fa-edit"></i> Edit
                         </a>
-                        <form action="{{ route('deleteUser', ['id' => $value->id]) }}" method="POST" style="display: inline;">
+                        <form action="{{ route('deleteStaff', ['id' => $value->id]) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">

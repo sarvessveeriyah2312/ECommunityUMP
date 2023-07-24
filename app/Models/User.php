@@ -64,6 +64,30 @@ class User extends Authenticatable
         ->get();
     }
 
+    static public function getStudent()
+    {
+        return User::select('users.*')
+        ->where('user_type', '=', 3)
+        ->orderBy('id', 'asc')
+        ->get();
+    }
+
+    static public function getParent()
+    {
+        return User::select('users.*')
+        ->where('user_type', '=', 4)
+        ->orderBy('id', 'asc')
+        ->get();
+    }
+
+    static public function getStaff()
+    {
+        return User::select('users.*')
+        ->where('user_type', '=', 5)
+        ->orderBy('id', 'asc')
+        ->get();
+    }
+
     static public function getEmailSingle($email)
     {
         return User::where('email', '=', $email)->first();

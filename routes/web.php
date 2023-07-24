@@ -56,8 +56,28 @@ Route::group(['middleware' => 'admin'], function () {
     Route::delete('/delete-lecturer/{id}', [LecturerController::class, 'destroy'])->name('deleteLecturer');
 
     Route::get('admin/student', [StudentController::class, 'list']);
+    Route::get('admin/student/add', [StudentController::class, 'add']);
+    Route::post('admin/student/add', [StudentController::class, 'insert']);
+    Route::get('/edit-student/{id}', [StudentController::class, 'edit']);
+    Route::post('/edit-student/{id}', [StudentController::class, 'update'])->name('updateStudent');
+    Route::delete('/delete-student/{id}', [StudentController::class, 'destroy'])->name('deleteStudent');
+
+
     Route::get('admin/parents', [ParentController::class, 'list']);
+    Route::get('admin/parents/add', [ParentController::class, 'add']);
+    Route::post('admin/parents/add', [ParentController::class, 'insert']);
+    Route::get('/edit-parent/{id}', [ParentController::class, 'edit']);
+    Route::post('/edit-parent/{id}', [ParentController::class, 'update'])->name('updateParent');
+    Route::delete('/delete-parent/{id}', [ParentController::class, 'destroy'])->name('deleteParent');
+
+    
     Route::get('admin/staff', [StaffController::class, 'list']);
+    Route::get('admin/staff/add', [StaffController::class, 'add']);
+    Route::post('admin/staff/add', [StaffController::class, 'insert']);
+    Route::get('/edit-staff/{id}', [StaffController::class, 'edit']);
+    Route::post('/edit-staff/{id}', [StaffController::class, 'update'])->name('updateStaff');
+    Route::delete('/delete-staff/{id}', [StaffController::class, 'destroy'])->name('deleteStaff');
+    
 
 
 

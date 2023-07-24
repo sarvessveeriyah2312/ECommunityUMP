@@ -122,8 +122,13 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="{{ url('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
-      </div>
+        @if (Auth::check() && Auth::user()->profile_image)
+            <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" class="img-circle elevation-2"  alt="User Image">
+        @else
+            <img src="{{ url('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+        @endif
+    </div>
+    
       <div class="info">
         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
       </div>
@@ -244,6 +249,47 @@
               </p>
             </a>
           </li>
+           <!--Dropdown Menu -->
+        <li class="nav-item">
+          <a href="#" class="nav-link @if(Request::segment(2) == 'admin') active @endif">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+              Users Management
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+              <li class="nav-item" class="nav-link @if(Request::segment(3) == 'admin') active @endif">
+                <a href="{{ url('admin/lecturer') }}" class="nav-link">
+                  <i class="nav-icon fas fa-user"></i>
+                  <p>
+                    Lecturer
+                  </p>
+                </a>
+              <li class="nav-item">
+                <a href="{{ url('admin/student') }}" class="nav-link">
+                  <i class="nav-icon fas fa-graduation-cap"></i>
+                  <p>
+                    Student
+                  </p>
+                </a>
+                <li class="nav-item">
+                  <a href="{{ url('admin/parents') }}" class="nav-link">
+                    <i class="nav-icon fas fa-star"></i>
+                    <p>
+                      Parents
+                    </p>
+                  </a>
+                  <li class="nav-item">
+                    <a href="{{ url('admin/staff') }}" class="nav-link">
+                      <i class="nav-icon fas fa-id-badge"></i>
+                      <p>
+                        Staff
+                      </p>
+                    </a>
+          </ul>
+        </li>
+        <!--Dropdown Menu Ends -->
           <li class="nav-item">
             <a href="" class="nav-link @if(Request::segment(2) == 'class') active @endif">
               <i class="nav-icon fas fa-landmark"></i>
