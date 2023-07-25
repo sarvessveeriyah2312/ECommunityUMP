@@ -8,6 +8,26 @@ use Illuminate\Support\Facades\Hash;
 
 class LecturerController extends Controller
 {
+
+    public function index(Request $request)
+    {
+        $data['getRecord'] = User::getLecturer();
+        $data ['header_title'] = "Manage Lecturer";
+        $query = User::query();
+    
+        // Check if the 'search' parameter exists in the request
+        if ($request->has('search') && $request->filled('search')) {
+            $searchTerm = $request->input('search');
+            $query->where('name', 'LIKE', '%' . $searchTerm . '%'); // Replace 'name' with the column you want to search
+        }
+        $query->where('user_type', 2);
+    
+        $getRecord = $query->paginate(10); // You can adjust the number of records per page as needed
+    
+        return view('admin.lecturer.list', ['getRecord' => $getRecord], $data);
+    }
+
+
     public function list() {
         $data['getRecord'] = User::getLecturer();
         $data ['header_title'] = "Manage Lecturer";
@@ -21,6 +41,14 @@ class LecturerController extends Controller
 
     public function insert(Request $request)
     {
+        $request->validate([
+            'name' => 'required|unique:users',
+            'matrixid' => 'required|unique:users',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]); 
+        
         $user = new User;
         $user->name = trim($request->name);
         $user->matrixid = trim($request->matrixid);
@@ -55,6 +83,8 @@ class LecturerController extends Controller
     }
     public function update(Request $request, $id)
 {
+   
+
     $user = User::find($id);
     $user->name = trim($request->name);
     $user->matrixid = trim($request->matrixid);

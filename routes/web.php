@@ -41,6 +41,7 @@ Route::post('/reset/{token}', [AuthController::class, 'PostResetPassword']);
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/dashboard', [DashboardController::class, 'dashboard']);
     // Administrator Management
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     Route::get('admin/admin', [AdminController::class, 'list']);
     Route::get('admin/admin/add', [AdminController::class, 'add']);
     Route::post('admin/admin/add', [AdminController::class, 'insert']);
@@ -48,6 +49,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/edit-user/{id}', [AdminController::class, 'update'])->name('updateUser');
     Route::delete('/delete-user/{id}', [AdminController::class, 'destroy'])->name('deleteUser');
 
+    Route::get('/lecturer', [LecturerController::class, 'index'])->name('lecturer');
     Route::get('admin/lecturer', [LecturerController::class, 'list']);
     Route::get('admin/lecturer/add', [LecturerController::class, 'add']);
     Route::post('admin/lecturer/add', [LecturerController::class, 'insert']);
@@ -77,14 +79,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/edit-staff/{id}', [StaffController::class, 'edit']);
     Route::post('/edit-staff/{id}', [StaffController::class, 'update'])->name('updateStaff');
     Route::delete('/delete-staff/{id}', [StaffController::class, 'destroy'])->name('deleteStaff');
-    
-
-
-
-
-
-
-
     
 });
 

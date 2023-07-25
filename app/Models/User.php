@@ -53,7 +53,7 @@ class User extends Authenticatable
         return User::select('users.*')
         ->where('user_type', '=', 1)
         ->orderBy('id', 'asc')
-        ->get();
+        ->paginate(1);
     }
     
     static public function getLecturer()

@@ -24,7 +24,17 @@
             @include('_message')
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Lecturers</h3>
+                <h3 class="card-title">Total Lecturer : {{ $getRecord->total() }} </h3>
+                <div class="row justify-content-end">
+                  <div class="col-sm-2.5">
+                      <form action="{{ route('lecturer') }}" method="GET" class="form-inline" id="searchForm">
+                          <div class="form-group">
+                              <input type="text" name="search" placeholder="Search..." class="form-control" id="searchInput">
+                          </div>
+                          <!-- Remove the search button from the form -->
+                      </form>
+                  </div>
+              </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -68,19 +78,24 @@
                     </td>
                     
                   </tr>
-                  
-                    @endforeach
+                  @endforeach
+                  @if($getRecord->isEmpty())
+  <!-- This block will be displayed when $getRecord is empty -->
+  <tr>
+      <td colspan="7" class="text-center">Record not found.</td>
+  </tr>
+@endif
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                  <div class="card-footer clearfix">
+                    <ul class="pagination pagination-sm m-0 float-right">
+                      {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+                    </ul>
+                  </div>
                 </ul>
               </div>
             </div>

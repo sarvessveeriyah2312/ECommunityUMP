@@ -24,7 +24,18 @@
             @include('_message')
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Administrators</h3>
+                <h3 class="card-title">Total Administrators : {{ $getRecord->total() }} </h3>
+                <div class="row justify-content-end">
+                  <div class="col-sm-2.5">
+                      <form action="{{ route('admin') }}" method="GET" class="form-inline" id="searchForm">
+                          <div class="form-group">
+                              <input type="text" name="search" placeholder="Search..." class="form-control" id="searchInput">
+                          </div>
+                          <!-- Remove the search button from the form -->
+                      </form>
+                  </div>
+              </div>
+              
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -42,20 +53,24 @@
                   </thead>
                   <tbody>
                     @foreach($getRecord as $value)
+    <!-- Display the record details here -->
+
+
+
                     <tr>
                       <td style="text-align: center" >{{ $loop->iteration }}</td>
                       <td style="text-align: center" >{{ $value->name }}</td>
                       <td style="text-align: center" >{{ $value->email }}</td>
                       <td style="text-align: center" >{{ $value->matrixid }}</td>
-                      <td class="justify-content-center">
+                      <td class="text-center">
                         @if($value['profile_image'])
                         <img src="{{asset('storage/'.$value['profile_image']) }}"  height="100" width="80">
                           {{-- Display the image if it exists --}}
                         @endif
                       </td>
                       <td style="text-align: center" >{{ $value->created_at }}</td>
-                      <td class="justify-content-center">
-                        <a href="{{ route('updateUser', ['id' => $value->id]) }}" class="btn btn-primary mr-2" >
+                      <td class="text-center">
+                        <a href="{{ route('updateUser', ['id' => $value->id]) }}" class="btn btn-primary mr-2">
                             <i class="fas fa-edit"></i> Edit
                         </a>
                         <form action="{{ route('deleteUser', ['id' => $value->id]) }}" method="POST" style="display: inline;">
@@ -65,22 +80,22 @@
                                 <i class="fas fa-trash-alt"></i> Delete
                             </button>
                         </form>
-                    </td>
-                    
+                    </td>                    
                   </tr>
-                  
                     @endforeach
+                    @if($getRecord->isEmpty())
+    <!-- This block will be displayed when $getRecord is empty -->
+    <tr>
+        <td colspan="7" class="text-center">Record not found.</td>
+    </tr>
+@endif
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                  {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
                 </ul>
               </div>
             </div>
@@ -93,5 +108,23 @@
     </section>
     <!-- /.content -->
   </div>
+  <script>
+    let timerId;
+
+    // Get the search input and form elements
+    const searchInput = document.getElementById('searchInput');
+    const searchForm = document.getElementById('searchForm');
+
+    // Add event listener to the search input
+    searchInput.addEventListener('input', function () {
+        clearTimeout(timerId);
+
+        // Set a timer for 500 milliseconds (adjust as needed)
+        timerId = setTimeout(function () {
+            // Submit the form after the delay
+            searchForm.submit();
+        }, 500);
+    });
+</script>
 
 @endsection

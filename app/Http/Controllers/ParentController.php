@@ -21,6 +21,14 @@ class ParentController extends Controller
 
     public function insert(Request $request)
     {
+        $request->validate([
+            'name' => 'required|unique:users',
+            'matrixid' => 'required|unique:users',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        
         $user = new User;
         $user->name = trim($request->name);
         $user->matrixid = trim($request->matrixid);
@@ -56,6 +64,8 @@ class ParentController extends Controller
 
     public function update(Request $request, $id)
     {
+        
+
         $user = User::find($id);
         $user->name = trim($request->name);
         $user->matrixid = trim($request->matrixid);
